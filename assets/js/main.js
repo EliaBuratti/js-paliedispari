@@ -68,33 +68,7 @@ function checkResult () {
     result.innerHTML = `La somma totale è: ${total}. Il vicitore é: ${winner}`;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 /*:puntare_a_destra:  Palidroma
 Chiedere all’utente di inserire una parola Creare una funzione per capire se la parola inserita è palindroma
@@ -102,5 +76,60 @@ Chiedere all’utente di inserire una parola Creare una funzione per capire se l
 Scriviamo sempre in italiano i passaggi che vogliamo fare
 Scriviamo sempre solo un pezzetto di codice alla volta, se funziona allora andiamo avanti.
 non partiamo a bomba con la scrittura delle funzioni, ma prima scriviamo la logica come facciamo di solito, poi passiamo al refactoring e cerchiamo di capire cosa sia meglio creare come funzione. */
+
+const buttonCheck = document.querySelector('#word button');
+const wordInput = document.querySelector('#word input');
+const markupWord = document.querySelector('.word_palindrome');
+
+let word = []
+let wordReverse = [];
+
+buttonCheck.addEventListener('click', function() {
+    
+    
+    for (let i = 0 ; i <= wordInput.value.length -1 ; i++) {
+        
+        
+        word.push(wordInput.value[i]);
+        
+        
+    }
+    console.log(word);
+    
+
+    for (let i = wordInput.value.length -1; i >= 0 ; i--) {
+        
+        
+        wordReverse.push(word[i]);
+        
+        
+    }
+    console.log(wordReverse);
+
+    checkPalindrome(word,wordReverse);
+
+    markupWord.innerHTML = `La parola che hai digitato ${checkPalindrome(word, wordReverse)}`;
+
+    word = [];
+    wordReverse = [];
+
+});
+
+
+function checkPalindrome (word, wordReverse) {
+
+    
+    resultWord = 'non è palindroma';
+
+    for (let i = 0; (word[i] === wordReverse[i] && i < word.length); i++) {
+        
+        if (i + 1 === word.length) {
+            resultWord = 'è palindroma';
+        }
+        
+    };
+
+    return resultWord;
+}
 
 
