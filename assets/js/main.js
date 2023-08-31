@@ -121,25 +121,24 @@ buttonCheck.addEventListener('click', function() {
 //verifico che la parola inserita sia palindroma 
 function checkPalindrome (word, wordReverse) {
     
-    // creo un ciclo for per controllare ogni stringa dell'array se corrisponde
+    
+    resultWord = 'non è palindroma';
 
-    for (let i = 0; i < word.length; i++) {
-/*         
-    se la lunghezza di i corrisponde alla lunghezza della parola inserita 
-    (+1 perchè la i conta da 0 come l'array, mentre .lenght parte da 1) 
+    /* se la lunghezza di "i" corrisponde alla lunghezza della parola inserita 
+    (+1 perchè la i conta da 0 come l'array, mentre lenght parte da 1) 
+    E le stringhe dei due array sono uguali in ogni posizione */
+    
+    for (let i = 0; word[i] === wordReverse[i]; i++) {
 
-    E se le stringhe dei due array sono uguali in ogni posizione;
-*/
-        if (i + 1 === word.length && word[i] === wordReverse[i]) {
+        if (i + 1 === word.length) {
             resultWord = 'è palindroma';
-        } else {
-
-            resultWord = 'non è palindroma';
-        };
+        }
         
     };
 
+    //altrimenti lascia stampato non è palindroma
+
     return resultWord;
-};
+}
 
 
