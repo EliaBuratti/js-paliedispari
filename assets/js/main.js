@@ -128,11 +128,11 @@ function checkPalindrome (word, wordReverse) {
     (+1 perchè la i conta da 0 come l'array, mentre lenght parte da 1) 
     E le stringhe dei due array sono uguali in ogni posizione */
     
-    for (let i = 0; word[i] === wordReverse[i]; i++) {
+    for (let i = 0; word[i] === wordReverse[i] && i < word.length ; i++) {
 
         if (i + 1 === word.length) {
             resultWord = 'è palindroma';
-        }
+        };
         
     };
 
