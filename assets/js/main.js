@@ -7,17 +7,16 @@ Generiamo un numero random (sempre da 1 a 5) per il computer (usando una funzion
 
 const Choice = document.querySelectorAll('#even_odd button');
 const userNumber = document.querySelector('.us_number');
-const markupResult = document.querySelector('.player_win');
 
 //creo due event listener e a seconda di quale pulsante premo capisco se è pari o dispari
 
-Choice[0].addEventListener('click', function (){
+ Choice[0].addEventListener('click', function (){
 
     //mi assicuro che il range sia compreso tra 1 e 5
     if (userNumber.value >= 1 && userNumber.value <= 5 ) {
 
-        userChoice = true; //pari
-        checkResult(userChoice);
+        userChoice = 'pari';
+        checkResult(userNumber, userChoice);
 
         //console.log(`user input: ${userNumber.value}, somma totale ${total}, scelta utente: PARI`);
 
@@ -32,8 +31,8 @@ Choice[1].addEventListener('click', function (){
     //mi assicuro che il range sia compreso tra 1 e 5
     if (userNumber.value >= 1 && userNumber.value <= 5 ) {
 
-        userChoice = false; // dispari
-        checkResult(userChoice);
+        userChoice = 'dispari';
+        checkResult(userNumber, userChoice);
         
         //console.log(`user input: ${userNumber.value}, somma totale ${total}, scelta utente: DISPARI`);
 
@@ -42,24 +41,25 @@ Choice[1].addEventListener('click', function (){
     }
 });
 
-//funzioni------------------------------------------------------------------------------------------------------
+//------------------------------------------------ funzioni ------------------------------------------------------
 
 //sommo i risultati e controllo il vincitore
-function checkResult () {
+function checkResult (inputNumUser, inputChoiceUSer) {
 
-    total = Number(userNumber.value) + Math.floor(Math.random()* 5) + 1;
+    total = Number(inputNumUser.value) + Math.floor(Math.random()* 5) + 1;
 
-    if (total % 2 === 0 && userChoice == true) {
-        winner = 'User'
+    if (total % 2 === 0 && inputChoiceUSer == 'pari') {
+        winner = 'User';
 
-    } else if (total % 2 !== 0 && userChoice === false) {
-        winner = 'User'
+    } else if (total % 2 !== 0 && inputChoiceUSer === 'dispari') {
+        winner = 'User';
        
     } else {
-        winner = 'PC'
+        winner = 'PC';
     };
 
-    markupResult.innerHTML = `La somma totale è: ${total}. Il vicitore é: ${winner}`;
+    const markupResult = document.querySelector('.player_win');
+    markupResult.innerHTML = `La somma totale è: ${total}. Il vincitore é: ${winner}`;
 };
 
 //ricarico la pagina e faccio uscire un avviso
@@ -86,28 +86,12 @@ let word = []
 let wordReverse = [];
 
 buttonCheck.addEventListener('click', function() {
-    
-    //scompongo la parola inserita e la pusho nell'array in senso crescente
-    for (let i = 0 ; i <= wordInput.value.length -1 ; i++) {
-        
-        word.push(wordInput.value[i]); 
-    };
-
-    //console.log(word);
-    
-    //scompongo la parola inserita e la pusho nell'array in senso DEcrescente
-    for (let i = wordInput.value.length -1; i >= 0 ; i--) {
-        
-        wordReverse.push(word[i]);
-    };
-
-    //console.log(wordReverse);
 
     //richiamo la funzione per verificare la parola
-    checkPalindrome(word,wordReverse);
+    checkPalindrome(wordInput);
 
     //stampo in pagina l'esito
-    markupWord.innerHTML = `La parola che hai digitato ${checkPalindrome(word, wordReverse)}`;
+    markupWord.innerHTML = `La parola che hai digitato ${checkPalindrome(wordInput)}`;
 
     //svuoto l'array cosi da poter inserire altre parole senza dove ricaricare la pagina per svuotarlo
     word = [];
@@ -116,12 +100,23 @@ buttonCheck.addEventListener('click', function() {
 });
 
 
-//funzioni -----------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------- funzioni ----------------------------------------------------------------------------------------
 
 //verifico che la parola inserita sia palindroma 
-function checkPalindrome (word, wordReverse) {
+function checkPalindrome (wordInput) {
+
+    //scompongo la parola inserita e la pusho nell'array in senso crescente  (si potrebbe usare .split('') che mi restituisce l'array scomposto ==> ['e', 's', 'e', 'm', 'p', 'i', 'o']. )
+    for (let i = 0 ; i <= wordInput.value.length -1 ; i++) {
     
+        word.push(wordInput.value[i]); 
+    };
     
+    //scompongo la parola inserita e la pusho nell'array in senso DEcrescente  (si potrebbe usare arrayDaDividereRovesciare.split('').reverse().join(''); che mi restituisce l'array scomposto ==> ['o', 'i', 'p', 'm', 'e', 's', 'e']. )
+    for (let i = wordInput.value.length -1; i >= 0 ; i--) {
+        
+        wordReverse.push(word[i]); 
+    };
+
     resultWord = 'non è palindroma';
 
     /* se la lunghezza di "i" corrisponde alla lunghezza della parola inserita 
@@ -139,6 +134,6 @@ function checkPalindrome (word, wordReverse) {
     //altrimenti lascia stampato non è palindroma
 
     return resultWord;
-}
+};
 
 
